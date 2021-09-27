@@ -43,7 +43,7 @@ export class DocumentManager implements IDocumentManager {
     this._dialogs = options.sessionDialogs || sessionContextDialogs;
     this._docProviderFactory = options.docProviderFactory;
     this._isConnectedCallback = options.isConnectedCallback || (() => true);
-
+    
     this._opener = options.opener;
     this._when = options.when || options.manager.ready;
 
@@ -114,6 +114,22 @@ export class DocumentManager implements IDocumentManager {
         return;
       }
       handler.saveInterval = value || 120;
+    });
+  }
+
+  /**
+   * Determines the time interval for autosave in seconds.
+   */
+  get lastModifiedCheckMargin(): number {
+    return this._lastModifiedCheckMargin;
+  }
+
+  set lastModifiedCheckMargin(value: number) {
+    this._lastModifiedCheckMargin = value;
+
+    // For each existing context, set the save interval as needed.
+    this._contexts.forEach(context => {
+      context.lastModifiedCheckMargin = value || 500;
     });
   }
 
@@ -599,6 +615,7 @@ export class DocumentManager implements IDocumentManager {
   private _isDisposed = false;
   private _autosave = true;
   private _autosaveInterval = 120;
+  private _lastModifiedCheckMargin = 500;
   private _when: Promise<void>;
   private _setBusy: (() => IDisposable) | undefined;
   private _dialogs: ISessionContext.IDialogs;
@@ -708,3 +725,4 @@ namespace Private {
     /* no op */
   }
 }
+

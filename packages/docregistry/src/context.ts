@@ -723,7 +723,10 @@ export class Context<
         const modified = ycontextModified || this.contentsModel?.last_modified;
         const tClient = modified ? new Date(modified) : new Date();
         const tDisk = new Date(model.last_modified);
-        if (modified && tDisk.getTime() - tClient.getTime() > 500) {
+        if (
+          modified &&
+          tDisk.getTime() - tClient.getTime() > this._last_modified_check_margin
+        ) {
           // 500 ms
           return this._timeConflict(tClient, model, options);
         }
@@ -887,6 +890,7 @@ or load the version on disk (revert)?`,
   private _provider: IDocumentProvider;
   private _ydoc: Y.Doc;
   private _ycontext: Y.Map<string>;
+  private _last_modified_check_margin: number = 30000;
 }
 
 /**

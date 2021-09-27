@@ -183,6 +183,11 @@ const docManagerPlugin: JupyterFrontEndPlugin<IDocumentManager> = {
         | number
         | null;
       docManager.autosaveInterval = autosaveInterval || 120;
+      
+       // Handle last Modified Check Margin
+      const lastModifiedCheckMargin = settings.get('lastModifiedCheckMargin')
+        .composite as number | null;
+      docManager.lastModifiedCheckMargin = lastModifiedCheckMargin || 500;
 
       // Handle default widget factory overrides.
       const defaultViewers = settings.get('defaultViewers').composite as {

@@ -117,6 +117,12 @@
       "description": "Length of save interval in seconds",
       "default": 120
     },
+    "lastModifiedCheckMargin": {
+      "type": "number",
+      "title": "Last Modified Check Margin",
+      "description": "Length of margin in milliseconds before generating warning message for file changed on disk",
+      "default": 500
+    },
     "defaultViewers": {
       "type": "object",
       "title": "Default Viewers",
