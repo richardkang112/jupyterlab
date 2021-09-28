@@ -201,6 +201,14 @@ export class Context<
     return this._isDisposed;
   }
 
+  get lastModifiedCheckMargin(): number {
+    return this._last_modified_check_margin;
+  }
+
+  set lastModifiedCheckMargin(value: number) {
+    this._last_modified_check_margin = value;
+  }
+  
   /**
    * Dispose of the resources held by the context.
    */
