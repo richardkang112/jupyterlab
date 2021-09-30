@@ -186,7 +186,9 @@ const docManagerPlugin: JupyterFrontEndPlugin<IDocumentManager> = {
       
        // Handle last Modified Check Margin
       const lastModifiedCheckMargin = settings.get('lastModifiedCheckMargin')
-        .composite as number | null;
+        .composite as 
+        | number 
+        | null;
       docManager.lastModifiedCheckMargin = lastModifiedCheckMargin || 500;
 
       // Handle default widget factory overrides.

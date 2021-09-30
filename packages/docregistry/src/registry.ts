@@ -758,6 +758,8 @@ export namespace DocumentRegistry {
      */
     readOnly: boolean;
 
+    
+
     /**
      * The default kernel name of the document.
      */
