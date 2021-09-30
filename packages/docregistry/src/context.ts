@@ -201,12 +201,15 @@ export class Context<
     return this._isDisposed;
   }
 
+  /**
+   * Get the last modified check margin.
+   */
   get lastModifiedCheckMargin(): number {
-    return this._last_modified_check_margin;
+    return this._lastModifiedCheckMargin;
   }
 
   set lastModifiedCheckMargin(value: number) {
-    this._last_modified_check_margin = value;
+    this._lastModifiedCheckMargin = value;
   }
   
   /**
@@ -725,7 +728,8 @@ export class Context<
         // We want to check last_modified (disk) > last_modified (client)
         // (our last save)
         // In some cases the filesystem reports an inconsistent time,
-        // so we allow 0.5 seconds difference before complaining.
+        // so we allow 0.5 (configurable in advanced settings)
+        // seconds difference before complaining.
         const ycontextModified = this._ycontext.get('last_modified');
         // prefer using the timestamp from ycontext because it is more up to date
         const modified = ycontextModified || this.contentsModel?.last_modified;
@@ -733,7 +737,7 @@ export class Context<
         const tDisk = new Date(model.last_modified);
         if (
           modified &&
-          tDisk.getTime() - tClient.getTime() > this._last_modified_check_margin
+          tDisk.getTime() - tClient.getTime() > this._lastModifiedCheckMargin
         ) {
           // 500 ms
           return this._timeConflict(tClient, model, options);
@@ -898,7 +902,7 @@ or load the version on disk (revert)?`,
   private _provider: IDocumentProvider;
   private _ydoc: Y.Doc;
   private _ycontext: Y.Map<string>;
-  private _last_modified_check_margin: number = 30000;
+  private _lastModifiedCheckMargin: number = 30000;
 }
 
 /**

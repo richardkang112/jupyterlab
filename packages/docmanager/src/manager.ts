@@ -127,7 +127,7 @@ export class DocumentManager implements IDocumentManager {
   set lastModifiedCheckMargin(value: number) {
     this._lastModifiedCheckMargin = value;
 
-    // For each existing context, set the save interval as needed.
+    // For each existing context, set the last modified check margin as needed.
     this._contexts.forEach(context => {
       context.lastModifiedCheckMargin = value || 500;
     });
@@ -490,7 +490,8 @@ export class DocumentManager implements IDocumentManager {
       setBusy: this._setBusy,
       sessionDialogs: this._dialogs,
       collaborative: this._collaborative,
-      docProviderFactory: this._docProviderFactory
+      docProviderFactory: this._docProviderFactory,
+      lastModifiedCheckMargin: this._lastModifiedCheckMargin
     });
     const handler = new SaveHandler({
       context,
@@ -722,7 +723,10 @@ namespace Private {
    * use the implementation-specific functions.
    */
   export interface IContext extends Context<DocumentRegistry.IModel> {
-    /* no op */
+    /**
+     * A time interval before complaining when checking last_modified (disk) > that.last_modified (our last save)
+     */
+    lastModifiedCheckMargin: number;
   }
 }
 
