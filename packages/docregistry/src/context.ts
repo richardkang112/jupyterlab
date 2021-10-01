@@ -951,7 +951,7 @@ export namespace Context {
     /**
      * A time interval before complaining when checking last_modified (disk) > that.last_modified (our last save)
      */
-    lastModifiedCheckMargin: number;
+    lastModifiedCheckMargin?: number;
 
 
     /**

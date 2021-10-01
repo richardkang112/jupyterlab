@@ -723,7 +723,6 @@ namespace Private {
    * use the implementation-specific functions.
    */
   export interface IContext extends Context<DocumentRegistry.IModel> {
-    
   }
 }
 

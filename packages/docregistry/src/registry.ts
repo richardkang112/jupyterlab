@@ -853,6 +853,11 @@ export namespace DocumentRegistry {
     disposed: ISignal<this, void>;
 
     /**
+     * A time interval before complaining when checking last_modified (disk) > that.last_modified (our last save)
+     */
+    lastModifiedCheckMargin?: Number;
+
+    /**
      * The data model for the document.
      */
     readonly model: T;
